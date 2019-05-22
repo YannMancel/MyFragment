@@ -1,12 +1,20 @@
 <resources>
     <string name="app_name">"MyFragment"</string>
+    <string name="title_activity_params">"Parameters"</string>
+    <string name="title_activity_detail">Details</string>
 
     <!-- fragment_main.xml -->
-    <string name="show_happy_details">Show happy detail</string>
-    <string name="show_sad_details">Show sad detail</string>
-    <string name="show_horrible_details">Show horrible detail</string>
+    <string name="show_happy_details">"Show happy detail"</string>
+    <string name="show_sad_details">"Show sad detail"</string>
+    <string name="show_horrible_details">"Show horrible detail"</string>
 
     <!-- fragment_detail.xml -->
     <string name="no_detail_to_show_you">"I have no details to show you"</string>
+
+    <!-- fragment_params.xml -->
+    <string name="no_params">"I have no parameters to show you"</string>
+
+    <!-- menu_activity_main.xml -->
+    <string name="parameter">"Parameter"</string>
 
 </resources>

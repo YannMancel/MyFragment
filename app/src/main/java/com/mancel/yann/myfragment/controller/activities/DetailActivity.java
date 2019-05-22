@@ -1,30 +1,38 @@
 package com.mancel.yann.myfragment.controller.activities;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 
 import com.mancel.yann.myfragment.R;
 import com.mancel.yann.myfragment.controller.fragments.DetailFragment;
 
-public class DetailActivity extends AppCompatActivity {
+// TODO : In landscape mode, only the DetailFragment is displayed. The MainFragment could be displayed
+
+public class DetailActivity extends BaseActivity {
 
     // FIELDS --------------------------------------------------------------------------------------
 
     private DetailFragment mDetailFragment;
-    public static String EXTRA_BUTTON_TAG = "com.mancel.yann.myfragment.controller.activities.EXTRA_BUTTON_TAG";
+
+    public static String EXTRA_BUTTON_TAG = "com.mancel.yann.myfragment.controller.activities.DetailActivity.EXTRA_BUTTON_TAG";
 
     // METHODS -------------------------------------------------------------------------------------
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getActivityLayout() {
+        return R.layout.activity_detail;
+    }
 
-        // Associates the layout file to this class
-        setContentView(R.layout.activity_detail);
-
+    @Override
+    protected void configureDesign() {
         // Configures and shows the DetailFragment
         this.configureAndShowDetailFragment();
+
+        // Adds the Up button in the ToolBar
+        this.addUpButtonIntoToolBar();
     }
+
+    @Override
+    protected void updateDesign() {}
 
     @Override
     protected void onResume() {
@@ -62,5 +70,16 @@ public class DetailActivity extends AppCompatActivity {
 
         // Updates the UI of the Detail fragment
         this.mDetailFragment.updateTextView(tag);
+    }
+
+    /**
+     * Adds the Up button in the ToolBar
+     */
+    private void addUpButtonIntoToolBar() {
+        // Gets a Support ActionBar object corresponding to this ToolBar
+        ActionBar actionBar = getSupportActionBar();
+
+        // Enables the Up Button
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 }

@@ -1,19 +1,17 @@
 package com.mancel.yann.myfragment.controller.fragments;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.mancel.yann.myfragment.R;
 
+import butterknife.BindView;
+
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link BaseFragment} subclass.
  */
-public class MainFragment extends Fragment implements View.OnClickListener{
+public class MainFragment extends BaseFragment implements View.OnClickListener{
 
     // INTERFACE -----------------------------------------------------------------------------------
 
@@ -23,9 +21,10 @@ public class MainFragment extends Fragment implements View.OnClickListener{
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private Button mButtonHappy;
-    private Button mButtonSad;
-    private Button mButtonHorrible;
+    @BindView(R.id.fragment_main_button_happy) Button mButtonHappy;
+    @BindView(R.id.fragment_main_button_sad) Button mButtonSad;
+    @BindView(R.id.fragment_main_button_horrible) Button mButtonHorrible;
+
     private OnButtonClickedListener mCallback;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
@@ -33,6 +32,27 @@ public class MainFragment extends Fragment implements View.OnClickListener{
     public MainFragment() {}
 
     // METHODS -------------------------------------------------------------------------------------
+
+    @Override
+    protected BaseFragment newInstance() {
+        return new MainFragment();
+    }
+
+    @Override
+    protected int getFragmentLayout() {
+        return R.layout.fragment_main;
+    }
+
+    @Override
+    protected void configureDesign() {
+        // Adds the Listener to the Button fields
+        this.mButtonHappy.setOnClickListener(this);
+        this.mButtonSad.setOnClickListener(this);
+        this.mButtonHorrible.setOnClickListener(this);
+    }
+
+    @Override
+    protected void updateDesign() {}
 
     @Override
     public void onAttach(Context context) {
@@ -43,37 +63,9 @@ public class MainFragment extends Fragment implements View.OnClickListener{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-
-        // Configures the Button fields
-        this.configureButtons(view);
-
-        return view;
-    }
-
-    @Override
     public void onClick(View v) {
         // Spreads the click to the parent activity
         this.mCallback.onButtonClicked(v);
-    }
-
-    /**
-     * Configures the Button fields thanks to the View object in argument
-     *
-     * @param view a View object that contains all the fragment
-     */
-    private void configureButtons(final View view) {
-        // Initializes the Button fields
-        this.mButtonHappy = (Button) view.findViewById(R.id.fragment_main_button_happy);
-        this.mButtonSad = (Button) view.findViewById(R.id.fragment_main_button_sad);
-        this.mButtonHorrible = (Button) view.findViewById(R.id.fragment_main_button_horrible);
-
-        // Adds the Listener to the Button fields
-        this.mButtonHappy.setOnClickListener(this);
-        this.mButtonSad.setOnClickListener(this);
-        this.mButtonHorrible.setOnClickListener(this);
     }
 
     /**

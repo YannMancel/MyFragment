@@ -1,27 +1,23 @@
 package com.mancel.yann.myfragment.controller.fragments;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mancel.yann.myfragment.R;
 
+import butterknife.BindView;
+import icepick.State;
+
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link BaseFragment} subclass.
  */
-public class DetailFragment extends Fragment {
+public class DetailFragment extends BaseFragment {
 
     // FIELDS --------------------------------------------------------------------------------------
 
-    private TextView mTextView;
-    private int mButtonTag;
-    private static String BUNDLE_BUTTON_TAG = "com.mancel.yann.myfragment.controller.activities.BUNDLE_BUTTON_TAG";
+    @BindView(R.id.fragment_detail_text_view) TextView mTextView;
+
+    @State int mButtonTag;
 
     // CONSTRUCTORS --------------------------------------------------------------------------------
 
@@ -30,45 +26,22 @@ public class DetailFragment extends Fragment {
     // METHODS -------------------------------------------------------------------------------------
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_detail, container, false);
-
-        // Configures the TextView field
-        this.configureTextView(view);
-
-        return view;
+    protected BaseFragment newInstance() {
+        return new DetailFragment();
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        // Retrieves the saved data if possible
-        if (savedInstanceState != null) {
-            // Creates an integer that contains the retrieved data
-            final int RestoredButtonTag = savedInstanceState.getInt(BUNDLE_BUTTON_TAG, 0);
-
-            // Update the UI
-            this.updateTextView(RestoredButtonTag);
-        }
+    protected int getFragmentLayout() {
+        return R.layout.fragment_detail;
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        // Saves the button tag state
-        outState.putInt(BUNDLE_BUTTON_TAG, this.mButtonTag);
+    protected void configureDesign() {}
 
-        // Always call the superclass so it can save the view hierarchy state
-        super.onSaveInstanceState(outState);
-    }
-
-    /**
-     * Configures the TextView field thanks to the View object in argument
-     */
-    private void configureTextView(final View view) {
-        // Initializes the TextView field
-        this.mTextView = (TextView) view.findViewById(R.id.fragment_detail_text_view);
+    @Override
+    protected void updateDesign() {
+        // Updates the UI
+        this.updateTextView(this.mButtonTag);
     }
 
     /**
@@ -78,7 +51,9 @@ public class DetailFragment extends Fragment {
      */
     public void updateTextView(final int tag) {
         // Initializes the integer field
-        this.mButtonTag = tag;
+        if (this.mButtonTag != tag) {
+            this.mButtonTag = tag;
+        }
 
         // Choice
         switch (tag) {

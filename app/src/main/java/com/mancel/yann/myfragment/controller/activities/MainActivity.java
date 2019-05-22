@@ -1,16 +1,15 @@
 package com.mancel.yann.myfragment.controller.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.mancel.yann.myfragment.R;
 import com.mancel.yann.myfragment.controller.fragments.DetailFragment;
 import com.mancel.yann.myfragment.controller.fragments.MainFragment;
 
-public class MainActivity extends AppCompatActivity implements MainFragment.OnButtonClickedListener {
+public class MainActivity extends BaseActivity implements MainFragment.OnButtonClickedListener {
 
     // FIELDS --------------------------------------------------------------------------------------
 
@@ -20,18 +19,21 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
     // METHODS -------------------------------------------------------------------------------------
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int getActivityLayout() {
+        return R.layout.activity_main;
+    }
 
-        // Associates the layout file to this class
-        setContentView(R.layout.activity_main);
-
+    @Override
+    protected void configureDesign() {
         // Configures and shows the MainFragment
         this.configureAndShowMainFragment();
 
         // Configures and shows the DetailFragment
         this.configureAndShowDetailFragment();
     }
+
+    @Override
+    protected void updateDesign() {}
 
     @Override
     public void onButtonClicked(View view) {
@@ -49,6 +51,31 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Creates a MenuInflater object to add the menu xml file to this activity
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Depending on the item Id
+        switch (item.getItemId()) {
+
+            case R.id.menu_activity_main_params: {
+                //Launches the ParamsActivity class
+                this.launchParamsActivity();
+
+                return true;
+            }
+            default: {
+                return super.onOptionsItemSelected(item);
+            }
+        }
+    }
+
     /**
      * Launches the DetailActivity class
      *
@@ -62,6 +89,17 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
         intent.putExtra(DetailActivity.EXTRA_BUTTON_TAG, tag);
 
         // Launches the DetailActivity class
+        startActivity(intent);
+    }
+
+    /**
+     * Launches the ParamsActivity class
+     */
+    private void launchParamsActivity() {
+        // Creates an Intent object to connect the 2 activities
+        Intent intent = new Intent(MainActivity.this, ParamsActivity.class);
+
+        // Launches the ParamsActivity class
         startActivity(intent);
     }
 

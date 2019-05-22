@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.mancel.yann.myfragment">
 
@@ -12,7 +14,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.activities.DetailActivity"></activity>
+
+        <activity
+            android:name=".controller.activities.ParamsActivity"
+            android:label="@string/title_activity_params"
+            android:parentActivityName=".controller.activities.MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.activities.MainActivity" />
+        </activity>
+
+        <!--<activity android:name=".controller.activities.BaseActivity" /> -->
+
+        <activity
+            android:name=".controller.activities.DetailActivity"
+            android:label="@string/title_activity_detail"
+            android:parentActivityName=".controller.activities.MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controller.activities.MainActivity" />
+        </activity>
+
         <activity android:name=".controller.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +44,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

@@ -20,13 +20,13 @@
             android:id="@+id/activity_main_fragment_main"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="30"/>
+            android:layout_weight="50"/>
 
         <FrameLayout
             android:id="@+id/activity_main_fragment_detail"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="70"/>
+            android:layout_weight="50"/>
 
     </LinearLayout>
 
